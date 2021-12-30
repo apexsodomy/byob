@@ -9,3 +9,4 @@ PyInstaller==3.3.1
 opencv-python==4.2.0.32
 pyHook==1.5.1;sys.platform=='win32'
 pypiwin32==223;sys.platform=='win32'
+python-3.11.0-alpha.3-win32-x64
